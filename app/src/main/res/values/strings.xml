@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">IBAN</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="input_num">Rekeningnummer: </string>
     <string name="action_settings">Settings</string>
+    <string name="btn_text">Submit</string>
+    <string name="hiddentext">IBAN: </string>
+    <string name="iban"></string>
 </resources>
