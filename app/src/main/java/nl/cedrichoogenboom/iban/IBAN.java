@@ -1,13 +1,16 @@
 package nl.cedrichoogenboom.iban;
 
+import android.os.Debug;
+
 import java.math.BigInteger;
 
 /**
- * Created by ced on 16-5-15.
+ * Console version created by Bob on 14-5-2015,
+ * Ported to Java by Ced on 17-5-2015
  */
 public class IBAN {
 
-    private String[][] banken = {
+    private String[][] banken = new String[][]{
             {"00", "INGB"},
             {"10", "RABO"},
             {"11", "RABO"},
@@ -114,13 +117,13 @@ public class IBAN {
 
     private String getBank(String rekening) {
         String value = "";
-        String bankCode = "";
+        String bankCode;
         boolean found = false;
 
         bankCode = rekening.substring(1, 3);
 
         for (int i = 0; i < banken.length; i++) {
-            if (banken[i][0] == bankCode) {
+            if (banken[i][0].equals(bankCode)) {
                 value = banken[i][1];
                 found = true;
                 break;
@@ -134,8 +137,8 @@ public class IBAN {
     }
 
     public String getIBAN(String rekening) {
-        String Bank = "";
-        String Land = "";
+        String Bank;
+        String Land;
         Integer i;
         BigInteger e;
         String controleGetal = "";
@@ -152,9 +155,9 @@ public class IBAN {
             Bank = getBank(rekening);
             if (!Bank.equals("")) {
                 for (int j = 0; j < 4; j++)
-                    bankGetal = bankGetal + (int)(Bank.toUpperCase().charAt(j) - 55);
+                    bankGetal = bankGetal + (Bank.toUpperCase().charAt(j) - 55);
                 for (int j = 0; j < 2; j++)
-                    landGetal = landGetal + (int)(Land.toUpperCase().charAt(j) - 55);
+                    landGetal = landGetal + (Land.toUpperCase().charAt(j) - 55);
                 String CDec = bankGetal + rekening + landGetal + "00";
                 e = new BigInteger(CDec);
                 i = 98 - (e.mod(new BigInteger("97")).intValue());
