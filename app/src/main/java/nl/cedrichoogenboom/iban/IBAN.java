@@ -123,6 +123,7 @@ public class IBAN {
             if (banken[i][0] == bankCode) {
                 value = banken[i][1];
                 found = true;
+                break;
             }
         }
 
