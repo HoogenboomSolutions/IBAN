@@ -7,15 +7,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    // Array omdat Java geen Call By Reference heeft.
+    // Zucht... Java...
+    int[] manualBank = new int[1];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        manualBank[0] = 0;
     }
 
 
@@ -29,27 +35,46 @@ public class MainActivity extends ActionBarActivity {
     public void onButtonClick(View view) {
         EditText reknrInput = (EditText) findViewById(R.id.editText);
         EditText response = (EditText) findViewById(R.id.editText2);
+        EditText bankInput = (EditText) findViewById(R.id.bankEditText);
+        TextView bankText = (TextView) findViewById(R.id.textView3);
+        String getIBAN;
+
         Context context = getApplicationContext();
         Toast toast;
 
         String rekening = reknrInput.getText().toString();
         IBAN iban = new IBAN();
-        String getIBAN = iban.getIBAN(rekening);
+        if (manualBank[0] != 1 || bankInput.getText().toString() == "")
+            getIBAN = iban.getIBAN(rekening);
+        else {
+            String bank = bankInput.getText().toString().toUpperCase();
+            if (bank.length() != 4) {
+                toast = Toast.makeText(context, "Bankcode moet 4 letters zijn", Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }
 
-        // RekNr = "693553309" gaat fout, ANR
-        if (getIBAN == "Bank niet gevonden") {
-            toast = Toast.makeText(context, "Bankt niet gevonden, controleer rekeningnummer", Toast.LENGTH_SHORT);
-            toast.show();
+            getIBAN = iban.getIBANWithBank(rekening, bank, manualBank);
         }
-        else if (getIBAN == "Fout rekeningnummer") {
+
+        reknrInput.setEnabled(true);
+
+        // FIXME: RekNr = "693553309" gaat fout, ANR
+        if (getIBAN == "Fout rekeningnummer") {
             toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
             toast.show();
-        }
-        else if (getIBAN.substring(4, 9) == "Error") {
-            toast = Toast.makeText(context, "Bankt niet gevonden, controleer rekeningnummer", Toast.LENGTH_SHORT);
+        } else if (getIBAN.substring(4, 9) == "Error" || getIBAN == "Bank niet gevonden") {
+            toast = Toast.makeText(context, "Bank niet gevonden, vul banknaam in", Toast.LENGTH_LONG);
             toast.show();
-        }
-        else
+
+            bankInput.setVisibility(View.VISIBLE);
+            bankText.setVisibility(View.VISIBLE);
+            reknrInput.setEnabled(false);
+            manualBank[0] = 1;
+        } else {
             response.setText(getIBAN);
+            bankInput.setVisibility(View.GONE);
+            bankText.setVisibility(View.GONE);
+        }
     }
 }

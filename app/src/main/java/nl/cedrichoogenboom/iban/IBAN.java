@@ -73,7 +73,7 @@ public class IBAN {
             {"72", "AEGO"},
             {"73", "AEGO"},
             {"74", "AEGO"},
-            {"75", "INGB"},
+            /*{"75", "INGB"},*/
             {"76", "ABNA"},
             {"77", "AEGO"},
             {"79", "INGB"},
@@ -155,7 +155,7 @@ public class IBAN {
             }
 
             Bank = getBank(rekening);
-            if (!Bank.equals("")) {
+            if (!Bank.equals("") && !Bank.equals("BNF")) {
                 for (int j = 0; j < 4; j++)
                     bankGetal = bankGetal + (Bank.toUpperCase().charAt(j) - 55);
                 for (int j = 0; j < 2; j++)
@@ -179,5 +179,47 @@ public class IBAN {
         }
 
     return iBAN;
+    }
+
+    public String getIBANWithBank(String rekening, String Bank, int[] manualBank) {
+        String Land;
+        Integer i;
+        BigInteger e;
+        String controleGetal = "";
+        String bankGetal = "";
+        String landGetal = "";
+        String iBAN = "";
+        Land = "NL";
+
+        if (isBankNummer(rekening)) {
+            while (rekening.length() < 10) {
+                rekening = "0" + rekening;
+            }
+
+            if (!Bank.equals("")) {
+                for (int j = 0; j < 4; j++)
+                    bankGetal = bankGetal + (Bank.toUpperCase().charAt(j) - 55);
+                for (int j = 0; j < 2; j++)
+                    landGetal = landGetal + (Land.toUpperCase().charAt(j) - 55);
+                String CDec = bankGetal + rekening + landGetal + "00";
+                e = new BigInteger(CDec);
+                i = 98 - (e.mod(new BigInteger("97")).intValue());
+
+                if (i >= 10)
+                    controleGetal = i.toString();
+                else
+                    controleGetal = "0" + i.toString();
+            }
+            else {
+                return "Bank niet gevonden";
+            }
+            iBAN = Land + controleGetal + Bank + rekening;
+        }
+        else {
+            return "Fout rekeningnummer";
+        }
+
+        manualBank[0] = 0;
+        return iBAN;
     }
 }

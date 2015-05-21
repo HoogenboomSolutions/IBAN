@@ -6,4 +6,5 @@
     <string name="btn_text">Submit</string>
     <string name="hiddentext">IBAN: </string>
     <string name="iban"></string>
+    <string name="hiddentextview">Bank:</string>
 </resources>
