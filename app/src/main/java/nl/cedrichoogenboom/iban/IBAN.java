@@ -1,5 +1,6 @@
 package nl.cedrichoogenboom.iban;
 
+import android.content.Context;
 import android.os.Debug;
 
 import java.math.BigInteger;
@@ -118,6 +119,7 @@ public class IBAN {
     private String getBank(String rekening) {
         String value = "";
         String bankCode;
+
         boolean found = false;
 
         bankCode = rekening.substring(1, 3);
@@ -133,7 +135,7 @@ public class IBAN {
         if (found)
             return value;
         else
-            return "Error";
+            return "BNF";
     }
 
     public String getIBAN(String rekening) {
@@ -167,7 +169,13 @@ public class IBAN {
                 else
                     controleGetal = "0" + i.toString();
             }
+            else {
+                return "Bank niet gevonden";
+            }
             iBAN = Land + controleGetal + Bank + rekening;
+        }
+        else {
+            return "Fout rekeningnummer";
         }
 
     return iBAN;
