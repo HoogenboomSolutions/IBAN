@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    // Array omdat Java geen Call By Reference heeft.
+    // Array ipv bool omdat Java geen Call By Reference heeft.
     // Zucht... Java...
     int[] manualBank = new int[1];
 

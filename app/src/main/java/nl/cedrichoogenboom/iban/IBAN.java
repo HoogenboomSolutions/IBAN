@@ -73,7 +73,7 @@ public class IBAN {
             {"72", "AEGO"},
             {"73", "AEGO"},
             {"74", "AEGO"},
-            /*{"75", "INGB"},*/
+            {"75", "INGB"},
             {"76", "ABNA"},
             {"77", "AEGO"},
             {"79", "INGB"},
