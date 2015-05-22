@@ -86,7 +86,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         reknrInput.setEnabled(true);
 
-        // FIXME: RekNr = "693553309" gaat fout, ANR
         if (getIBAN.equals("Fout rekeningnummer")) {
             toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
             toast.show();
