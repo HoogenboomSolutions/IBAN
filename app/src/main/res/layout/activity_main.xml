@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
         android:singleLine="true"
+        android:editable="false"
         android:visibility="visible"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
