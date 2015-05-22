@@ -10,8 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     // Array ipv bool omdat Java geen Call By Reference heeft.
     // Zucht... Java...
@@ -22,14 +21,36 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manualBank[0] = 0;
+        EditText etReknr = (EditText)findViewById(R.id.editText);
+        etReknr.setOnClickListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        EditText reknrInput = (EditText) findViewById(R.id.editText);
+        EditText bankInput = (EditText) findViewById(R.id.bankEditText);
+        TextView bankText = (TextView) findViewById(R.id.textView3);
+
+        Context context = getApplicationContext();
+        Toast toast;
+
+        if (manualBank[0] == 1){
+            Toast.makeText(context, "IN MAKE EDITABLE", Toast.LENGTH_SHORT).show();
+            bankInput.setVisibility(View.GONE);
+            bankText.setVisibility(View.GONE);
+            reknrInput.setEnabled(true);
+            manualBank[0] = 0;
+        }
+        else {
+            Toast.makeText(context, "IN MAKE EDITABLE - OTHER BRANCHE", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onButtonClick(View view) {
