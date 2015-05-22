@@ -43,8 +43,14 @@ public class MainActivity extends ActionBarActivity {
         Toast toast;
 
         String rekening = reknrInput.getText().toString();
+        if (rekening.length() < 3){
+            toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
         IBAN iban = new IBAN();
-        if (manualBank[0] != 1 || bankInput.getText().toString() == "")
+        if (manualBank[0] != 1 || bankInput.getText().toString().equals("") )
             getIBAN = iban.getIBAN(rekening);
         else {
             String bank = bankInput.getText().toString().toUpperCase();
@@ -60,10 +66,10 @@ public class MainActivity extends ActionBarActivity {
         reknrInput.setEnabled(true);
 
         // FIXME: RekNr = "693553309" gaat fout, ANR
-        if (getIBAN == "Fout rekeningnummer") {
+        if (getIBAN.equals("Fout rekeningnummer")) {
             toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
             toast.show();
-        } else if (getIBAN.substring(4, 9) == "Error" || getIBAN == "Bank niet gevonden") {
+        } else if (getIBAN.substring(4, 9).equals("Error") || getIBAN.equals("Bank niet gevonden")) {
             toast = Toast.makeText(context, "Bank niet gevonden, vul banknaam in", Toast.LENGTH_LONG);
             toast.show();
 
