@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 
-public class MainActivity extends Activity  {
+public class MainActivity extends ActionBarActivity  {
 
     // Array ipv bool omdat Java geen Call By Reference heeft.
     // Zucht... Java...
