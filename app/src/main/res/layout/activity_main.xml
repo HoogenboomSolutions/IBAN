@@ -76,6 +76,7 @@
         android:minLines="1"
         android:maxLines="1"
         android:singleLine="true"
+        android:inputType="textCapCharacters"
         android:layout_alignEnd="@+id/button" />
 
     <TextView

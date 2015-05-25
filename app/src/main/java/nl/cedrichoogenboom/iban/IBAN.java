@@ -197,8 +197,12 @@ public class IBAN {
             }
 
             if (!Bank.equals("")) {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++) {
+                    if (!((Bank.charAt(j) >= 65 && Bank.charAt(j) <= 90) || (Bank.charAt(j) >= 97 && Bank.charAt(j) <= 122))) {
+                        return "Foute Bankcode";
+                    }
                     bankGetal = bankGetal + (Bank.toUpperCase().charAt(j) - 55);
+                }
                 for (int j = 0; j < 2; j++)
                     landGetal = landGetal + (Land.toUpperCase().charAt(j) - 55);
                 String CDec = bankGetal + rekening + landGetal + "00";

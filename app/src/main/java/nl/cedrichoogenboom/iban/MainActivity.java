@@ -82,19 +82,17 @@ public class MainActivity extends ActionBarActivity  {
                 toast.show();
                 return;
             }
-
             getIBAN = iban.getIBANWithBank(rekening, bank, manualBank);
         }
 
         //reknrInput.setEnabled(true);
 
-        if (getIBAN.equals("Fout rekeningnummer")) {
-            toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
+        if (getIBAN.equals("Fout rekeningnummer") || getIBAN.equals("Foute Bankcode")) {
+            toast = Toast.makeText(context, getIBAN, Toast.LENGTH_SHORT);
             toast.show();
         } else if (getIBAN.substring(4, 9).equals("Error") || getIBAN.equals("Bank niet gevonden")) {
             toast = Toast.makeText(context, "Bank niet gevonden, vul banknaam in", Toast.LENGTH_LONG);
             toast.show();
-
             bankInput.setVisibility(View.VISIBLE);
             bankText.setVisibility(View.VISIBLE);
             //reknrInput.setEnabled(false);
