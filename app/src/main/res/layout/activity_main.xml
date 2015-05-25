@@ -15,6 +15,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:clickable="true"
+        android:minLines="1"
+        android:maxLines="1"
+        android:singleLine="true"
         android:enabled="true" />
 
     <TextView
@@ -51,10 +54,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
         android:singleLine="true"
+        android:inputType="textCapCharacters"
         android:visibility="visible"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:minLines="1"
+        android:maxLines="1"
         android:layout_alignRight="@+id/bankEditText"
         android:layout_alignEnd="@+id/bankEditText" />
 
@@ -67,6 +73,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/button"
+        android:minLines="1"
+        android:maxLines="1"
+        android:singleLine="true"
         android:layout_alignEnd="@+id/button" />
 
     <TextView

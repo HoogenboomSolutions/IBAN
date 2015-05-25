@@ -25,23 +25,27 @@ public class MainActivity extends Activity  {
         setContentView(R.layout.activity_main);
         manualBank[0] = 0;
         EditText etReknr = (EditText)findViewById(R.id.editText);
-        etReknr.setOnClickListener(  new OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     EditText reknrInput = (EditText) findViewById(R.id.editText);
-                     EditText bankInput = (EditText) findViewById(R.id.bankEditText);
-                     TextView bankText = (TextView) findViewById(R.id.textView3);
+        EditText editText2 = (EditText)findViewById(R.id.editText2);
+        etReknr.setOnClickListener(new OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           EditText reknrInput = (EditText) findViewById(R.id.editText);
+                                           EditText bankInput = (EditText) findViewById(R.id.bankEditText);
+                                           TextView bankText = (TextView) findViewById(R.id.textView3);
 
-                     if (manualBank[0] == 1) {
-                         bankInput.setVisibility(View.GONE);
-                         bankText.setVisibility(View.GONE);
-                         reknrInput.setEnabled(true);
-                         manualBank[0] = 0;
-                     }
-                 }
-             }
+                                           if (manualBank[0] == 1) {
+                                               bankInput.setVisibility(View.GONE);
+                                               bankText.setVisibility(View.GONE);
+                                               reknrInput.setEnabled(true);
+                                               manualBank[0] = 0;
+                                           }
+                                       }
+                                   }
         );
 
+        // "editable=false is depricated, hieronder bankEditText niet meer editable maken
+        editText2.setKeyListener(null);
+        editText2.setTextIsSelectable(true);
     }
 
     @Override
