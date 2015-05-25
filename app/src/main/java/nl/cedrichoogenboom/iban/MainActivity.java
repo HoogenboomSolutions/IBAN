@@ -5,12 +5,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends Activity  {
 
     // Array ipv bool omdat Java geen Call By Reference heeft.
     // Zucht... Java...
@@ -22,7 +25,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         manualBank[0] = 0;
         EditText etReknr = (EditText)findViewById(R.id.editText);
-        etReknr.setOnClickListener(this);
+        etReknr.setOnClickListener(  new OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     EditText reknrInput = (EditText) findViewById(R.id.editText);
+                     EditText bankInput = (EditText) findViewById(R.id.bankEditText);
+                     TextView bankText = (TextView) findViewById(R.id.textView3);
+
+                     if (manualBank[0] == 1) {
+                         bankInput.setVisibility(View.GONE);
+                         bankText.setVisibility(View.GONE);
+                         reknrInput.setEnabled(true);
+                         manualBank[0] = 0;
+                     }
+                 }
+             }
+        );
+
     }
 
     @Override
@@ -30,27 +49,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        EditText reknrInput = (EditText) findViewById(R.id.editText);
-        EditText bankInput = (EditText) findViewById(R.id.bankEditText);
-        TextView bankText = (TextView) findViewById(R.id.textView3);
-
-        Context context = getApplicationContext();
-        Toast toast;
-
-        if (manualBank[0] == 1){
-            Toast.makeText(context, "IN MAKE EDITABLE", Toast.LENGTH_SHORT).show();
-            bankInput.setVisibility(View.GONE);
-            bankText.setVisibility(View.GONE);
-            reknrInput.setEnabled(true);
-            manualBank[0] = 0;
-        }
-        else {
-            Toast.makeText(context, "IN MAKE EDITABLE - OTHER BRANCHE", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void onButtonClick(View view) {
@@ -84,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             getIBAN = iban.getIBANWithBank(rekening, bank, manualBank);
         }
 
-        reknrInput.setEnabled(true);
+        //reknrInput.setEnabled(true);
 
         if (getIBAN.equals("Fout rekeningnummer")) {
             toast = Toast.makeText(context, "Fout rekeningnummer", Toast.LENGTH_SHORT);
@@ -95,7 +93,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             bankInput.setVisibility(View.VISIBLE);
             bankText.setVisibility(View.VISIBLE);
-            reknrInput.setEnabled(false);
+            //reknrInput.setEnabled(false);
             manualBank[0] = 1;
         } else {
             response.setText(getIBAN);
